@@ -9,24 +9,24 @@ public class UserCreationTest extends BaseTest {
 
     @Test
     public void createUniqueUserTest() {
-        UserRequestModel elena = new UserRequestModel("mukh" + getUniqueId() + "@mail.ru", "1234", "Artur");
+        UserRequestModel artur = new UserRequestModel("mukh" + getUniqueId() + "@mail.ru", "1234", "Artur");
 
-        postNewUser(elena);
+        postNewUser(artur);
     }
 
     @Test
     public void createAlreadyExistingUserTest() {
         String uniqueId = getUniqueId();
-        UserRequestModel elena = new UserRequestModel("mukh" + uniqueId + "@mail.ru", "1234", "Artur");
-        usersToDelete.add(elena);
+        UserRequestModel artur = new UserRequestModel("mukh" + uniqueId + "@mail.ru", "1234", "Artur");
+        usersToDelete.add(artur);
 
-        Response response = createUser(elena);
+        Response response = createUser(artur);
 
         assertEquals("User should have been created!",
                 200,
                 response.getStatusCode());
 
-        Response failedResponse = createUser(elena);
+        Response failedResponse = createUser(artur);
 
         assertEquals("Should have received status code 403 because user already exists!",
                 403,

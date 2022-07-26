@@ -12,14 +12,14 @@ public class UserChangingTest extends BaseTest {
 
     @Test
     public void changeUserWithAuth() {
-        UserRequestModel elena = new UserRequestModel("mukh" + getUniqueId() + "@mail.ru", "1234", "Artur");
-        postNewUser(elena);
-        AuthResponseModel authResponseModel = authorizeUser(elena).as(AuthResponseModel.class);
+        UserRequestModel artur = new UserRequestModel("mukh" + getUniqueId() + "@mail.ru", "1234", "Artur");
+        postNewUser(artur);
+        AuthResponseModel authResponseModel = authorizeUser(artur).as(AuthResponseModel.class);
 
         String newName = "Artur Mukh";
-        elena.setName(newName);
+        artur.setName(newName);
 
-        Response response1 = updateUser(elena, authResponseModel.getAccessToken());
+        Response response1 = updateUser(artur, authResponseModel.getAccessToken());
 
         assertEquals("Code should be 200!", 200, response1.getStatusCode());
         assertTrue("User update should have succeeded!", response1.as(PatchResponseModel.class).isSuccess());
@@ -27,9 +27,9 @@ public class UserChangingTest extends BaseTest {
 
 
         String newEmail = "newemail" + getUniqueId() + "@gmail.com";
-        elena.setEmail(newEmail);
+        artur.setEmail(newEmail);
 
-        Response response2 = updateUser(elena, authResponseModel.getAccessToken());
+        Response response2 = updateUser(artur, authResponseModel.getAccessToken());
 
         assertEquals("Code should be 200!", 200, response2.getStatusCode());
         assertTrue("User update should have succeeded!", response2.as(PatchResponseModel.class).isSuccess());
@@ -37,14 +37,14 @@ public class UserChangingTest extends BaseTest {
 
 
         String newPassword = "123456";
-        elena.setPassword(newPassword);
+        artur.setPassword(newPassword);
 
-        Response response3 = updateUser(elena, authResponseModel.getAccessToken());
+        Response response3 = updateUser(artur, authResponseModel.getAccessToken());
 
         assertEquals("Code should be 200!", 200, response3.getStatusCode());
         assertTrue("User update should have succeeded!", response3.as(PatchResponseModel.class).isSuccess());
 
-        Response authWithNewPassword = authorizeUser(elena);
+        Response authWithNewPassword = authorizeUser(artur);
 
         assertEquals("Should have authorized with new password!",
                 200,
